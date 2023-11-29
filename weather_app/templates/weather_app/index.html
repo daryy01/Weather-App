@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="header">
+    <h1>Weather App</h1>
+    <p>Choose a city to know its weather conditions.</p>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <div class="input-container">
+      <input type="text" name="city1" placeholder="Enter City 1">
+      <input type="text" name="city2" placeholder="Enter City 2">
+  </div>
+  <button type="submit">Confirm City</button>
+</form>
+
+<div class="comparison-container">
+  {% if weather_data1 %}
+    <div class="city-container">
+      <div class="city-info">
+        {% include 'weather_app/city_weather.html' with weather_data=weather_data1 daily_forecasts=daily_forecasts1 %}
+      </div>
+    </div>
+  {% endif %}
+  {% if weather_data2 %}
+    <div class="city-container">
+      <div class="city-info">
+        {% include 'weather_app/city_weather.html' with weather_data=weather_data2 daily_forecasts=daily_forecasts2 %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="footer">
+    <p>&copy; 2023 Weather App. All rights reserved.</p>
+    <!-- Add more information, links, or features here if needed -->
+</div>
+
+</body>
+</html>
